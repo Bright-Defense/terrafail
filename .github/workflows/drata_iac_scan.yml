@@ -1,7 +1,7 @@
 on:
   push:
     branches: 
-      - main
+      - compliance/**
   pull_request:
     branches: 
       - main
@@ -22,18 +22,5 @@ jobs:
         with:
             minimumSeverity: 'CRITICAL'
             - name: Drata Compliance as Code Action
-  # You may pin to the exact commit or the version.
-  # uses: drata/compliance-as-code-action@a3085e633f315132c8fe1b5e7e9c40be1c01964c
-  uses: drata/compliance-as-code-action@v1.0.0
-  with:
-    # Minimum severity
-    minimumSeverity: low # default is Critical
-    # Workspace to run this action for
-    workspaceId: 1 # optional, default is 1
-    # A boolean flag that notes if design gaps should be displayed in GitHub Workflow console log
-    verboseLogging: # optional
-    # Provide your region EU, US
-    region: # optional, default is US
-    # Time in seconds to wait for testing to complete before initiating a timeout of the action.
-    timeoutSeconds: # optional, default is 600
+  
           
