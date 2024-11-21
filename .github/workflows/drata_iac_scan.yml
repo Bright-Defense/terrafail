@@ -27,9 +27,9 @@ jobs:
   uses: drata/compliance-as-code-action@v1.0.0
   with:
     # Minimum severity
-    minimumSeverity: # default is Critical
+    minimumSeverity: low # default is Critical
     # Workspace to run this action for
-    workspaceId: # optional, default is 1
+    workspaceId: 1 # optional, default is 1
     # A boolean flag that notes if design gaps should be displayed in GitHub Workflow console log
     verboseLogging: # optional
     # Provide your region EU, US
