@@ -156,7 +156,7 @@ resource "aws_security_group" "TerraFailLB_security_group" {
 # ---------------------------------------------------------------------
 resource "aws_s3_bucket" "TerraFailLB_bucket" {
   bucket = "TerraFailLB_bucket"
-  acl    = "public-read-write"
+  acl    = "private"
 }
 
 # ---------------------------------------------------------------------
