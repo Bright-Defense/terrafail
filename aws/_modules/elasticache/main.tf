@@ -39,7 +39,7 @@ resource "aws_elasticache_replication_group" "TerraFailElasticache_replication_g
   multi_az_enabled            = false
   automatic_failover_enabled  = true
   at_rest_encryption_enabled  = false
-  transit_encryption_enabled  = false
+  transit_encryption_enabled  = true
   snapshot_retention_limit = 0
 }
 
