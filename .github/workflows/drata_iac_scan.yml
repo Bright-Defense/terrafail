@@ -20,7 +20,7 @@ jobs:
             GITHUB_REPOSITORY: $GITHUB_REPOSITORY
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            minimumSeverity: 1
+            minimumSeverity: 'LOW'
             - name: Drata Compliance as Code Action
   
           
