@@ -32,6 +32,7 @@ EOF
 # KMS
 # ---------------------------------------------------------------------
 resource "aws_kms_key" "TerraFailSQS_key" {
+  # Drata: Define [aws_kms_key.policy] to restrict access to your resource. Follow the principal of minimum necessary access, ensuring permissions are scoped to trusted entities. Exclude this finding if you are managing access via IAM policies
   description             = "TerraFailSQS_key"
   deletion_window_in_days = 10
 }
