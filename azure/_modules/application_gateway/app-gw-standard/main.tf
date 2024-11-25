@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailAppGateway_rg" {
 # Application Gateway
 # ---------------------------------------------------------------------
 resource "azurerm_application_gateway" "TerraFailAppGateway" {
+  # Drata: Configure [azurerm_application_gateway.zones] to improve infrastructure availability and resilience
   name                = "TerraFailAppGateway"
   resource_group_name = azurerm_resource_group.TerraFailAppGateway_rg.name
   location            = azurerm_resource_group.TerraFailAppGateway_rg.location
@@ -21,7 +22,7 @@ resource "azurerm_application_gateway" "TerraFailAppGateway" {
   sku {
     name     = "Standard_v2"
     tier     = "Standard_v2"
-    capacity = 1
+    capacity = 2
   }
 
   gateway_ip_configuration {
@@ -54,7 +55,7 @@ resource "azurerm_application_gateway" "TerraFailAppGateway" {
     request_timeout       = 0
 
     connection_draining {
-      enabled           = false
+      enabled           = true
       drain_timeout_sec = 4000
     }
   }
@@ -63,13 +64,13 @@ resource "azurerm_application_gateway" "TerraFailAppGateway" {
     name                           = "http-listener-1"
     frontend_ip_configuration_name = "ip_config_1"
     frontend_port_name             = "front_end_port_1"
-    protocol                       = "Http"
+    protocol                       = "Https"
   }
 
   ssl_policy {
     policy_type          = "Predefined"
-    min_protocol_version = "TLSv1_1"
-    policy_name          = "AppGwSslPolicy20150501"
+    min_protocol_version = "TLSv1_2"
+    policy_name          = "AppGwSslPolicy20150501" # Drata: ssl_policy.policy_name should be set to any of AppGwSslPolicy20220101S, AppGwSslPolicy20220101
   }
 
   ssl_certificate {
@@ -93,6 +94,7 @@ resource "azurerm_public_ip" "TerraFailAppGateway_ip_config" {
 # KeyVault
 # ---------------------------------------------------------------------
 resource "azurerm_key_vault" "TerraFailAppGateway_vault" {
+  # Drata: Configure [azurerm_key_vault.tags] to ensure that organization-wide tagging conventions are followed.
   name                        = "TerraFailAppGateway_vault"
   location                    = azurerm_resource_group.TerraFailAppGateway_rg.location
   resource_group_name         = azurerm_resource_group.TerraFailAppGateway_rg.name
@@ -101,7 +103,7 @@ resource "azurerm_key_vault" "TerraFailAppGateway_vault" {
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
   enable_rbac_authorization   = true
-  public_network_access_enabled = true
+  public_network_access_enabled = false
 
   sku_name = "standard"
 }

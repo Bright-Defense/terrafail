@@ -47,7 +47,7 @@ resource "azurerm_windows_function_app" "TerraFailFunction_windows" {
     cors {
       allowed_origins = ["*"]
     }
-    minimum_tls_version      = "1.0"
+    minimum_tls_version      = 1.2
     remote_debugging_enabled = true
 
     ip_restriction {
@@ -69,6 +69,7 @@ resource "azurerm_service_plan" "TerraFailFunction_service_plan" {
 }
 
 resource "azurerm_storage_account" "TerraFailFunction_storage_linux" {
+  # Drata: Configure [azurerm_storage_account.tags] to ensure that organization-wide tagging conventions are followed.
   name                      = "TerraFailFunction_storage_linux"
   resource_group_name       = azurerm_resource_group.TerraFailFunction_rg.name
   location                  = azurerm_resource_group.TerraFailFunction_rg.location
@@ -84,11 +85,13 @@ resource "azurerm_storage_account" "TerraFailFunction_storage_linux" {
   }
 }
 resource "azurerm_storage_account" "TerraFailFunction_storage_windows" {
+  # Drata: Configure [azurerm_storage_account.tags] to ensure that organization-wide tagging conventions are followed.
   name                      = "TerraFailFunction_storage_windows"
   resource_group_name       = azurerm_resource_group.TerraFailFunction_rg.name
   location                  = azurerm_resource_group.TerraFailFunction_rg.location
   account_tier              = "Standard_v2"
   account_replication_type  = "LRS"
+  # Drata: Configure [azurerm_storage_account.account_replication_type] to improve infrastructure availability and resilience. To create highly available Storage Accounts, set azurerm_storage_account.account_replication_type to a geo-redundant storage option by selecting one of the following SKUs: ['standard_grs', 'standard_gzrs', 'standard_ragrs', 'standard_ragzrs', 'grs', 'gzrs', 'ragrs', 'ragzrs']
   enable_https_traffic_only = true
   min_tls_version           = "TLS1_2"
   public_network_access_enabled = false
