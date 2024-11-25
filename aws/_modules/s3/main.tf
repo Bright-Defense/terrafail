@@ -30,6 +30,7 @@ resource "aws_s3_bucket_ownership_controls" "TerraFailS3_bucket_ownership" {
 
   rule {
     object_ownership = "BucketOwnerPreferred"
+  # Drata: Set [aws_s3_bucket_ownership_controls.rule.object_ownership] to [BucketOwnerEnforced] to configure resource access using IAM policies. If maintaining a BucketOwnerPreferred access pattern, set s3.bucket.access_control to bucket-owner-full-control to maintain full control over objects written into the bucket by other accounts
   }
 }
 
