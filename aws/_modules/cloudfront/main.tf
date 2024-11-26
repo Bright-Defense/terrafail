@@ -56,6 +56,7 @@ resource "aws_cloudfront_TerraFailCloudfront_identity" "TerraFailCloudfront_iden
 # S3
 # ---------------------------------------------------------------------
 resource "aws_s3_bucket" "TerraFailCloudfront_bucket" {
+  # Drata: Set [aws_s3_bucket_versioning.versioning_configuration.status] to [Enabled] to enable infrastructure versioning and prevent accidental deletions and overrides
   bucket = "TerraFailCloudfront_bucket"
   acl    = "private"
 
