@@ -7,6 +7,7 @@ resource "azurerm_resource_group" "TerraFailIoTHub_rg" {
 # DNS
 # ---------------------------------------------------------------------
 resource "azurerm_iothub" "TerraFailIoTHub" {
+  # Drata: Configure [azurerm_iothub.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailIoTHub"
   resource_group_name = azurerm_resource_group.TerraFailIoTHub_rg.name
   location            = azurerm_resource_group.TerraFailIoTHub_rg.location
@@ -24,6 +25,7 @@ resource "azurerm_iothub" "TerraFailIoTHub" {
     ip_rule {
       name    = "wildcard"
       ip_mask = "0.0.0.0/0"
+    # Drata: Ensure that [azurerm_iothub.network_rule_set.ip_rule.ip_mask] is explicitly defined and narrowly scoped to only allow trusted sources to access IoT Hub
     }
   }
 }

@@ -2,12 +2,14 @@
 # PubSub
 # ---------------------------------------------------------------------
 resource "google_pubsub_topic" "TerraFailPubsub" {
+  # Drata: Configure [google_pubsub_topic.labels] to ensure that organization-wide label conventions are followed.
   name                       = "TerraFailPubsub"
   message_retention_duration = "86600s"
   kms_key_name               = "projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}"
 }
 
 resource "google_pubsub_subscription" "TerraFailPubsub_subscription" {
+  # Drata: Configure [google_pubsub_subscription.labels] to ensure that organization-wide label conventions are followed.
   name                       = "TerraFailPubsub_subscription"
   topic                      = google_pubsub_topic.TerraFailPubsub.name
   message_retention_duration = "1200s"
