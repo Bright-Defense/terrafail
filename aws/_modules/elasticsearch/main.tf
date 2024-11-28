@@ -21,7 +21,7 @@ resource "aws_elasticsearch_domain" "TerraFailElasticache_domain" {
 
   cluster_config {
     instance_type          = "c6g.large.elasticsearch"
-    zone_awareness_enabled = false
+    zone_awareness_enabled = true
     instance_count         = 2
   }
 
