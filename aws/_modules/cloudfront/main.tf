@@ -4,6 +4,7 @@
 # CloudFront
 # ---------------------------------------------------------------------
 resource "aws_cloudfront_distribution" "TerraFailCloudfront_distribution" {
+  # Drata: Configure [aws_cloudfront_distribution.tags] to ensure that organization-wide tagging conventions are followed.
   # Drata: Configure [aws_cloudfront_distribution.logging_config.bucket] to ensure that security-relevant events are logged to detect malicious activity
   enabled = true
   aliases = ["www.thisisthedarkside.com", "thisisthedarkside.com"]
