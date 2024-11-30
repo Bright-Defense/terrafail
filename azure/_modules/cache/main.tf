@@ -37,7 +37,7 @@ resource "azurerm_redis_cache" "TerraFailCache" {
   public_network_access_enabled = true
 
   redis_configuration {
-    rdb_backup_enabled = false
+    rdb_backup_enabled = true
   }
 }
 
