@@ -126,6 +126,7 @@ resource "azurerm_availability_set" "TerraFailVM_availability_set" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "TerraFailVM_vault" {
+  # Drata: Configure [azurerm_key_vault.tags] to ensure that organization-wide tagging conventions are followed.
   name                        = "TerraFailVM_vault"
   location                    = azurerm_resource_group.TerraFailVM_rg.location
   resource_group_name         = azurerm_resource_group.TerraFailVM_rg.name
