@@ -122,6 +122,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "TerraFailVMSS_windows" {
 # LoadBalancer
 # ---------------------------------------------------------------------
 resource "azurerm_lb" "TerraFailVMSS_lb" {
+  # Drata: Configure [azurerm_lb.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailVMSS_lb"
   location            = azurerm_resource_group.TerraFailVMSS_rg.location
   resource_group_name = azurerm_resource_group.TerraFailVMSS_rg.name
