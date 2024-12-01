@@ -2,6 +2,7 @@
 # Storage
 # ---------------------------------------------------------------------
 resource "google_storage_bucket" "TerraFailStorage" {
+  # Drata: Configure [google_storage_bucket.labels] to ensure that organization-wide label conventions are followed.
   name                        = "TerraFailStorage"
   location                    = "US-EAST1"
   uniform_bucket_level_access = true
