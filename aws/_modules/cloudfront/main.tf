@@ -69,6 +69,7 @@ resource "aws_s3_bucket_ownership_controls" "TerraFailCloudfront_bucket_ownershi
   bucket = aws_s3_bucket.TerraFailCloudfront_bucket.id
   rule {
     object_ownership = "ObjectWriter"
+  # Drata: Set [aws_s3_bucket_ownership_controls.rule.object_ownership] to [BucketOwnerEnforced] to configure resource access using IAM policies
   }
 }
 
