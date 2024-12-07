@@ -4,6 +4,7 @@
 # S3
 # ---------------------------------------------------------------------
 resource "aws_s3_bucket" "TerraFailS3_bucket" {
+  # Drata: Configure [aws_s3_bucket.tags] to ensure that organization-wide tagging conventions are followed.
   force_destroy       = false
   object_lock_enabled = false
 }
@@ -30,12 +31,14 @@ resource "aws_s3_bucket_ownership_controls" "TerraFailS3_bucket_ownership" {
 
   rule {
     object_ownership = "BucketOwnerPreferred"
+  # Drata: Set [aws_s3_bucket_ownership_controls.rule.object_ownership] to [BucketOwnerEnforced] to configure resource access using IAM policies. If maintaining a BucketOwnerPreferred access pattern, set s3.bucket.access_control to bucket-owner-full-control to maintain full control over objects written into the bucket by other accounts
   }
 }
 
 resource "aws_s3_bucket_policy" "TerraFailS3_bucket_policy" {
   bucket = aws_s3_bucket.TerraFailS3_bucket.id
   policy = <<EOF
+  # Drata: Configure [aws_s3_bucket_policy.policy] to ensure secure protocols are being used to encrypt resource traffic
 {
 "Version": "2012-10-17",
 "Id": "PutObjPolicy",
@@ -58,15 +61,15 @@ EOF
 
 resource "aws_s3_bucket_public_access_block" "TerraFailS3_bucket_access" {
   bucket                  = aws_s3_bucket.TerraFailS3_bucket.id
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_versioning" "TerraFailS3_bucket_versioning" {
   bucket = aws_s3_bucket.TerraFailS3_bucket.id
   versioning_configuration {
-    status = "Disabled"
+    status = "Enabled"
   }
 }

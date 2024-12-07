@@ -9,6 +9,8 @@ resource "azurerm_resource_group" "TerraFailAPI_rg" {
 # ApiManagement
 # ---------------------------------------------------------------------
 resource "azurerm_api_management" "TerraFailAPI" {
+  # Drata: Configure [azurerm_api_management.tags] to ensure that organization-wide tagging conventions are followed.
+  # Drata: Configure [azurerm_api_management.zones] to improve infrastructure availability and resilience
   name                          = "TerraFailAPI"
   location                      = azurerm_resource_group.TerraFailAPI_rg.location
   resource_group_name           = azurerm_resource_group.TerraFailAPI_rg.name
@@ -16,7 +18,7 @@ resource "azurerm_api_management" "TerraFailAPI" {
   publisher_email               = "TerraFailAPI@fail.io"
   sku_name                      = "Premium_1"
   client_certificate_enabled    = false
-  min_api_version               = "2014-02-14"
+  min_api_version               = "2019-12-01"
   public_network_access_enabled = false
 
   virtual_network_configuration {
@@ -67,6 +69,7 @@ resource "azurerm_subnet" "TerraFailAPI_subnet" {
 }
 
 resource "azurerm_virtual_network" "TerraFailAPI_virtual_network" {
+  # Drata: Configure [azurerm_virtual_network.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailAPI_virtual_network"
   location            = azurerm_resource_group.TerraFailAPI_rg.location
   resource_group_name = azurerm_resource_group.TerraFailAPI_rg.name
