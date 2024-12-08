@@ -33,7 +33,7 @@ resource "azurerm_redis_cache" "TerraFailCache" {
   family                        = "P"
   sku_name                      = "Premium"
   enable_non_ssl_port           = true
-  minimum_tls_version           = "1.0"
+  minimum_tls_version           = 1.2
   public_network_access_enabled = true
 
   redis_configuration {
