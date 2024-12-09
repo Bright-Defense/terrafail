@@ -13,6 +13,7 @@ resource "aws_elastic_beanstalk_application" "TerraFailElasticBeanstalk" {
 }
 
 resource "aws_elastic_beanstalk_environment" "TerraFailElasticBeanstalk_environment" {
+  # Drata: To enable managed platform updates specify an environment configuration option with namespace aws:elasticbeanstalk:managedactions
   name                = "TerraFailElasticBeanstalk_environment"
   application         = aws_elastic_beanstalk_application.TerraFailElasticBeanstalk.name
   solution_stack_name = "64bit Amazon Linux 2015.03 v2.0.3 running Go 1.4"
