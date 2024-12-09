@@ -47,6 +47,7 @@ resource "azurerm_windows_web_app" "TerraFailWeb_windows" {
     ip_restriction {
       action     = "Allow"
       ip_address = "0.0.0.0/0"
+    # Drata: Ensure that [azurerm_windows_web_app.site_config.ip_restriction.ip_address] is explicitly defined and narrowly scoped to only allow trusted sources to access Web App
     }
   }
 }
