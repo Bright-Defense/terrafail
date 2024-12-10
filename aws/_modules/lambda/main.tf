@@ -87,6 +87,7 @@ resource "aws_kinesis_stream" "TerraFailLambda_stream" {
 # SNS
 # ---------------------------------------------------------------------
 resource "aws_sns_topic" "TerraFailLambda_topic" {
+  # Drata: Define [aws_sns_topic.policy] to restrict access to your resource. Follow the principal of minimum necessary access, ensuring permissions are scoped to trusted entities. Exclude this finding if you are managing access via IAM policies
   name = "TerraFailLambda_topic"
 
   policy = <<EOF
