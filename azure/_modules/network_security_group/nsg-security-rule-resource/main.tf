@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailNSG_rg" {
 # Network
 # ---------------------------------------------------------------------
 resource "azurerm_network_security_group" "TerraFailNSG" {
+  # Drata: Configure [azurerm_network_security_group.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailNSG"
   location            = azurerm_resource_group.TerraFailNSG_rg.location
   resource_group_name = azurerm_resource_group.TerraFailNSG_rg.name
@@ -25,6 +26,7 @@ resource "azurerm_network_security_rule" "TerraFailNSG_inbound_rule" {
   source_port_range           = "*"
   destination_port_range      = "*"
   source_address_prefix       = "*"
+  # Drata: Ensure that [azurerm_network_security_rule.source_address_prefix] is explicitly defined and narrowly scoped to only allow traffic from trusted sources
   destination_address_prefix  = "*"
 }
 
@@ -40,5 +42,6 @@ resource "azurerm_network_security_rule" "TerraFailNSG_outbound_rule" {
   destination_port_range      = "*"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
+  # Drata: Ensure that [azurerm_network_security_rule.destination_address_prefix] is explicitly defined and narrowly scoped to only allow traffic to trusted sources
 }
 

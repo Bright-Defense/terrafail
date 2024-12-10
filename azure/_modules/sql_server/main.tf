@@ -25,7 +25,7 @@ resource "azurerm_mssql_elasticpool" "TerraFailSQL_elasticpool" {
   location            = azurerm_resource_group.TerraFailSQL_rg.location
   server_name         = azurerm_mssql_server.TerraFailSQL_server.name
   max_size_gb         = 10
-  zone_redundant      = false
+  zone_redundant      = true
 
   tags = {
     key = "value"
@@ -46,8 +46,8 @@ resource "azurerm_mssql_elasticpool" "TerraFailSQL_elasticpool" {
 
 resource "azurerm_mssql_server_extended_auditing_policy" "TerraFailSQL_server_auditing_policy" {
   server_id         = azurerm_mssql_server.TerraFailSQL_server.id
-  enabled           = false
-  retention_in_days = 20
+  enabled           = true
+  retention_in_days = 365
 }
 
 resource "azurerm_mssql_server_transparent_data_encryption" "TerraFailSQL_server_tde" {
