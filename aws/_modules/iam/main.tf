@@ -142,6 +142,7 @@ resource "aws_iam_role" "TerraFailIAM_role_managed" {
 }
 
 resource "aws_iam_role" "TerraFailIAM_role_custom" {
+  # Drata: Configure [aws_iam_role.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailIAM_role_custom"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
