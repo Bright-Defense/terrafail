@@ -26,6 +26,7 @@ resource "azurerm_subnet" "TerraFailCache_subnet" {
 # Cache
 # ---------------------------------------------------------------------
 resource "azurerm_redis_cache" "TerraFailCache" {
+  # Drata: Configure [azurerm_redis_cache.zones] to improve infrastructure availability and resilience
   name                          = "TerraFailCachee"
   location                      = azurerm_resource_group.TerraFailCache_rg.location
   resource_group_name           = azurerm_resource_group.TerraFailCache_rg.name
