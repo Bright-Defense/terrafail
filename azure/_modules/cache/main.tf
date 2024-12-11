@@ -45,6 +45,7 @@ resource "azurerm_redis_cache" "TerraFailCache" {
 # Storage
 # ---------------------------------------------------------------------
 resource "azurerm_storage_account" "TerraFailCache_storage" {
+  # Drata: Configure [azurerm_storage_account.tags] to ensure that organization-wide tagging conventions are followed.
   name                          = "TerraFailCache_storage"
   resource_group_name           = azurerm_resource_group.TerraFailCache_rg.name
   location                      = azurerm_resource_group.TerraFailCache_rg.location
