@@ -69,7 +69,7 @@ resource "azurerm_application_gateway" "TerraFailAppGateway" {
   ssl_policy {
     policy_type          = "Predefined"
     min_protocol_version = "TLSv1_1"
-    policy_name          = "AppGwSslPolicy20150501"
+    policy_name          = "AppGwSslPolicy20150501" # Drata: ssl_policy.policy_name should be set to any of AppGwSslPolicy20220101S, AppGwSslPolicy20220101
   }
 
   ssl_certificate {
