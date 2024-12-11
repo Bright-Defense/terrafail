@@ -9,16 +9,17 @@ resource "azurerm_resource_group" "TerraFailStorage_rg" {
 # Storage Account
 # ---------------------------------------------------------------------
 resource "azurerm_storage_account" "TerraFailStorage" {
+  # Drata: Configure [azurerm_storage_account.tags] to ensure that organization-wide tagging conventions are followed.
   name                              = "TerraFailStorage"
   resource_group_name               = azurerm_resource_group.TerraFailStorage_resource_group.name
   location                          = azurerm_resource_group.TerraFailStorage_resource_group.location
   account_tier                      = "Standard_v2"
   account_kind                      = "StorageV2"
-  public_network_access_enabled     = true
+  public_network_access_enabled     = false
   account_replication_type          = "GRS"
   infrastructure_encryption_enabled = false
-  enable_https_traffic_only         = false
-  min_tls_version                   = "TLS1_0"
+  enable_https_traffic_only         = true
+  min_tls_version                   = "TLS1_2"
 
   network_rules {
     default_action = "Allow"

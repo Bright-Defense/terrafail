@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailCache_rg" {
 # Network
 # ---------------------------------------------------------------------
 resource "azurerm_virtual_network" "TerraFailCache_virtual_network" {
+  # Drata: Configure [azurerm_virtual_network.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailCache_virtual_network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.TerraFailCache_rg.location
@@ -26,18 +27,20 @@ resource "azurerm_subnet" "TerraFailCache_subnet" {
 # Cache
 # ---------------------------------------------------------------------
 resource "azurerm_redis_cache" "TerraFailCache" {
+  # Drata: Configure [azurerm_redis_cache.tags] to ensure that organization-wide tagging conventions are followed.
+  # Drata: Configure [azurerm_redis_cache.zones] to improve infrastructure availability and resilience
   name                          = "TerraFailCachee"
   location                      = azurerm_resource_group.TerraFailCache_rg.location
   resource_group_name           = azurerm_resource_group.TerraFailCache_rg.name
   capacity                      = 1
   family                        = "P"
   sku_name                      = "Premium"
-  enable_non_ssl_port           = true
-  minimum_tls_version           = "1.0"
+  enable_non_ssl_port           = false
+  minimum_tls_version           = 1.2
   public_network_access_enabled = true
 
   redis_configuration {
-    rdb_backup_enabled = false
+    rdb_backup_enabled = true
   }
 }
 
@@ -45,6 +48,7 @@ resource "azurerm_redis_cache" "TerraFailCache" {
 # Storage
 # ---------------------------------------------------------------------
 resource "azurerm_storage_account" "TerraFailCache_storage" {
+  # Drata: Configure [azurerm_storage_account.tags] to ensure that organization-wide tagging conventions are followed.
   name                          = "TerraFailCache_storage"
   resource_group_name           = azurerm_resource_group.TerraFailCache_rg.name
   location                      = azurerm_resource_group.TerraFailCache_rg.location
