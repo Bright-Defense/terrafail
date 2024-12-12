@@ -2,6 +2,7 @@
 # Certificate Manager
 # ---------------------------------------------------------------------
 resource "google_certificate_manager_certificate" "TerraFailCertManager" {
+  # Drata: Configure [google_certificate_manager_certificate.labels] to ensure that organization-wide label conventions are followed.
   name        = "TerraFailCertManager"
   description = "TerraFailCertManager description"
   scope       = "EDGE_CACHE"
