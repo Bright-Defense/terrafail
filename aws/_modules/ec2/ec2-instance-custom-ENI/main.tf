@@ -4,6 +4,7 @@
 # EC2-Instance
 # ---------------------------------------------------------------------
 resource "aws_instance" "TerraFailEC2Instance" {
+  # Drata: Configure [aws_instance.tags] to ensure that organization-wide tagging conventions are followed.
   ami = data.aws_ami.ubuntu.id
 
   launch_template {
