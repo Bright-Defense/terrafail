@@ -2,6 +2,7 @@
 # SecretsManager
 # ---------------------------------------------------------------------
 resource "google_secret_manager_secret" "TerraFailSecretManager" {
+  # Drata: Configure [google_secret_manager_secret.labels] to ensure that organization-wide label conventions are followed.
   secret_id = "TerraFailSecretManager_secret"
   rotation {
   }
