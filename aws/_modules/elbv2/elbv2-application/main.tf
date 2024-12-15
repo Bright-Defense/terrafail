@@ -155,6 +155,7 @@ resource "aws_security_group" "TerraFailLB_security_group" {
 # S3
 # ---------------------------------------------------------------------
 resource "aws_s3_bucket" "TerraFailLB_bucket" {
+  # Drata: Configure [aws_s3_bucket.tags] to ensure that organization-wide tagging conventions are followed.
   bucket = "TerraFailLB_bucket"
   acl    = "private"
 }
