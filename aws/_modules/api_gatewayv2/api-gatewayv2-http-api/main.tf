@@ -240,6 +240,7 @@ EOF
 # IAM
 # ---------------------------------------------------------------------
 resource "aws_iam_role" "TerraFailAPIv2_role" {
+  # Drata: Configure [aws_iam_role.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailAPIv2_role"
   path = "/"
 
