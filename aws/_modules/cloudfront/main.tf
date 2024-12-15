@@ -4,6 +4,7 @@
 # CloudFront
 # ---------------------------------------------------------------------
 resource "aws_cloudfront_distribution" "TerraFailCloudfront_distribution" {
+  # Drata: Configure [aws_cloudfront_distribution.tags] to ensure that organization-wide tagging conventions are followed.
   enabled = true
   aliases = ["www.thisisthedarkside.com", "thisisthedarkside.com"]
 
