@@ -4,6 +4,7 @@
 # ELBv1
 # ---------------------------------------------------------------------
 resource "aws_elb" "TerraFailELB" {
+  # Drata: Configure [aws_elb.tags] to ensure that organization-wide tagging conventions are followed.
   name     = "TerraFailELB"
   subnets  = [aws_subnet.TerraFailELB_subnet.id]
   # Drata: Configure [aws_elb.subnets] to improve infrastructure availability and resilience. Define at least 2 subnets or availability zones on your load balancer to enable zone redundancy
