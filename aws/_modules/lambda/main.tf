@@ -87,6 +87,7 @@ resource "aws_kinesis_stream" "TerraFailLambda_stream" {
 # SNS
 # ---------------------------------------------------------------------
 resource "aws_sns_topic" "TerraFailLambda_topic" {
+  # Drata: Configure [aws_sns_topic.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailLambda_topic"
 
   policy = <<EOF
