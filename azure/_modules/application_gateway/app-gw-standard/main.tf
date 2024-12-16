@@ -93,6 +93,7 @@ resource "azurerm_public_ip" "TerraFailAppGateway_ip_config" {
 # KeyVault
 # ---------------------------------------------------------------------
 resource "azurerm_key_vault" "TerraFailAppGateway_vault" {
+  # Drata: Configure [azurerm_key_vault.tags] to ensure that organization-wide tagging conventions are followed.
   name                        = "TerraFailAppGateway_vault"
   location                    = azurerm_resource_group.TerraFailAppGateway_rg.location
   resource_group_name         = azurerm_resource_group.TerraFailAppGateway_rg.name
