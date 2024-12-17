@@ -2,6 +2,7 @@
 # Cloud Functions
 # ---------------------------------------------------------------------
 resource "google_cloudfunctions_function" "TerraFailCloudFunctions" {
+  # Drata: Configure [google_cloudfunctions_function.labels] to ensure that organization-wide label conventions are followed.
   name                          = "TerraFailCloudFunctions"
   description                   = "TerraFailCloudFunctions description"
   runtime                       = "nodejs20"
