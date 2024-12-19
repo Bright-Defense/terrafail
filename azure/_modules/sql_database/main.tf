@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailSQL_rg" {
 # SQL Database
 # ---------------------------------------------------------------------
 resource "azurerm_mssql_database" "TerraFailSQL_database" {
+  # Drata: Configure [azurerm_mssql_database.tags] to ensure that organization-wide tagging conventions are followed.
   name                                = "TerraFailSQL_database"
   server_id                           = azurerm_mssql_server.TerraFailSQL_server.id
   zone_redundant                      = false
@@ -20,7 +21,7 @@ resource "azurerm_mssql_database" "TerraFailSQL_database" {
 
 resource "azurerm_mssql_database_extended_auditing_policy" "TerraFailSQL_database_auditing_policy" {
   database_id       = azurerm_mssql_database.TerraFailSQL_database.id
-  enabled           = false
+  enabled           = true
   retention_in_days = 365
 }
 

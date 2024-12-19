@@ -2,6 +2,8 @@
 # KMS
 # ---------------------------------------------------------------------
 resource "google_kms_crypto_key" "TerraFailKMS" {
+  # Drata: Configure [google_kms_crypto_key.rotation_period] to minimize the risk of key exposure by ensuring that sensitive values are periodically rotated
+  # Drata: Configure [google_kms_crypto_key.labels] to ensure that organization-wide label conventions are followed.
   name     = "TerraFailKMS"
   key_ring = google_kms_key_ring.TerraFailKMS_ring.id
 }
@@ -32,6 +34,7 @@ resource "google_kms_key_ring_iam_member" "TerraFailKMS_ring_iam_member" {
   key_ring_id = "TerraFailKMS_ring_iam_member"
   role        = "roles/cloudkms.admin"
   member      = "allUsers"
+  # Drata: Explicitly scope [google_kms_key_ring_iam_member.member] in adherence with the principal of least privilege. Avoid the use of overly permissive allow-all access patterns such as ([allusers, allauthenticatedusers])
 }
 
 resource "google_kms_key_ring" "TerraFailKMS_ring" {

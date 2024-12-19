@@ -4,6 +4,7 @@
 # WAFv2
 # ---------------------------------------------------------------------
 resource "aws_wafv2_ip_set" "TerraFailWAF_ip_set" {
+  # Drata: Configure [aws_wafv2_ip_set.tags] to ensure that organization-wide tagging conventions are followed.
   name               = "TerraFailWAF_ip_set"
   description        = "TerraFailWAF_ip_set description"
   scope              = "REGIONAL"
@@ -12,6 +13,7 @@ resource "aws_wafv2_ip_set" "TerraFailWAF_ip_set" {
 }
 
 resource "aws_wafv2_rule_group" "TerraFailWAF_rule_group" {
+  # Drata: Configure [aws_wafv2_rule_group.tags] to ensure that organization-wide tagging conventions are followed.
   name     = "TerraFailWAF_rule_group"
   scope    = "REGIONAL"
   capacity = 2
@@ -91,6 +93,7 @@ resource "aws_TerraFailWAF_web_acl" "TerraFailWAF_web_acl" {
 }
 
 resource "aws_wafv2_regex_pattern_set" "TerraFailWAF_regex_pattern_set" {
+  # Drata: Configure [aws_wafv2_regex_pattern_set.tags] to ensure that organization-wide tagging conventions are followed.
   name        = "TerraFailWAF_regex_pattern_set"
   description = "TerraFailWAF_regex_pattern_set description"
   scope       = "REGIONAL"

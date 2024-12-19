@@ -5,6 +5,7 @@
 # ---------------------------------------------------------------------
 
 resource "aws_api_gateway_rest_api" "TerraFailAPI" {
+  # Drata: Configure [aws_api_gateway_rest_api.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailAPI"
 
   endpoint_configuration {
@@ -57,12 +58,14 @@ resource "aws_api_gateway_deployment" "TerraFailAPI_deployment" {
 }
 
 resource "aws_api_gateway_domain_name" "TerraFailAPI_domain_name" {
+  # Drata: Configure [aws_api_gateway_domain_name.tags] to ensure that organization-wide tagging conventions are followed.
   certificate_arn = aws_acm_certificate_validation.TerraFailAPI_cert.certificate_arn
   domain_name     = "www.thisisthedarkside.com"
-  security_policy = "tls_1_1"
+  security_policy = "tls_1_2"
 }
 
 resource "aws_api_gateway_api_key" "TerraFailAPI_key" {
+  # Drata: Configure [aws_api_gateway_api_key.tags] to ensure that organization-wide tagging conventions are followed.
   name        = "TerraFailAPI_key"
   description = "TerraFailAPI_key description"
   enabled     = true
@@ -89,6 +92,7 @@ resource "aws_api_gateway_method" "TerraFailAPI_method" {
 }
 
 resource "aws_api_gateway_usage_plan" "TerraFailAPI_usage_plan" {
+  # Drata: Configure [aws_api_gateway_usage_plan.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailAPI_usage_plan"
 
   api_stages {
@@ -98,6 +102,8 @@ resource "aws_api_gateway_usage_plan" "TerraFailAPI_usage_plan" {
 }
 
 resource "aws_api_gateway_stage" "TerraFailAPI_stage" {
+  # Drata: Configure [aws_api_gateway_stage.access_log_settings] to ensure that security-relevant events are logged to detect malicious activity
+  # Drata: Configure [aws_api_gateway_stage.tags] to ensure that organization-wide tagging conventions are followed.
   deployment_id = aws_api_gateway_deployment.TerraFailAPI_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.TerraFailAPI.id
   stage_name    = "TerraFailAPI_stage"
@@ -111,11 +117,12 @@ resource "aws_api_gateway_stage" "TerraFailAPI_stage" {
 # Lambda
 # ---------------------------------------------------------------------
 resource "aws_lambda_function" "TerraFailAPI_lambda_function" {
+  # Drata: Configure [aws_lambda_function.vpc_config] to improve network monitoring capabilities and ensure network communication is restricted to trusted sources. Exclude this finding if there is a need for your Lambda Function to access external endpoints
   filename      = "${path.module}/foo.zip"
   function_name = "TerraFailAPI_lambda_function"
   role          = aws_iam_role.TerraFailAPI_iam_role.arn
 
-  runtime = "nodejs12.x"
+  runtime = "nodejs20"
   handler = "index.test"
 }
 
@@ -123,6 +130,7 @@ resource "aws_lambda_function" "TerraFailAPI_lambda_function" {
 # IAM
 # ---------------------------------------------------------------------
 resource "aws_iam_role" "TerraFailAPI_iam_role" {
+  # Drata: Configure [aws_iam_role.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailAPI_iam_role"
 
   assume_role_policy = <<EOF

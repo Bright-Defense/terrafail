@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailVM_rg" {
 # Virtual Machine
 # ---------------------------------------------------------------------
 resource "azurerm_linux_virtual_machine" "TerraFailVM_linux" {
+  # Drata: Configure [azurerm_windows_virtual_machine.tags] to ensure that organization-wide tagging conventions are followed.
   name                            = "TerraFailVM_linux"
   resource_group_name             = azurerm_resource_group.TerraFailVM_rg.name
   location                        = azurerm_resource_group.TerraFailVM_rg.location
@@ -39,6 +40,8 @@ resource "azurerm_linux_virtual_machine" "TerraFailVM_linux" {
 }
 
 resource "azurerm_windows_virtual_machine" "TerraFailVM_windows" {
+  # Drata: Configure [azurerm_windows_virtual_machine.tags] to ensure that organization-wide tagging conventions are followed.
+  # Drata: It is recommended to create two or more virtual machines within an availability set to improve application redundancy and availability.
   name                = "TerraFailVM_windows"
   resource_group_name = azurerm_resource_group.TerraFailVM_rg.name
   location            = azurerm_resource_group.TerraFailVM_rg.location
@@ -50,7 +53,7 @@ resource "azurerm_windows_virtual_machine" "TerraFailVM_windows" {
   network_interface_ids = [
     azurerm_network_interface.TerraFailVM_windows_network_interface.id,
   ]
-  encryption_at_host_enabled = false
+  encryption_at_host_enabled = true
 
   winrm_listener {
     protocol = "Https"
@@ -73,6 +76,7 @@ resource "azurerm_windows_virtual_machine" "TerraFailVM_windows" {
 # Network
 # ---------------------------------------------------------------------
 resource "azurerm_virtual_network" "TerraFailVM_virtual_network" {
+  # Drata: Configure [azurerm_virtual_network.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailVM_virtual_network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.TerraFailVM_rg.location
@@ -126,6 +130,7 @@ resource "azurerm_availability_set" "TerraFailVM_availability_set" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "TerraFailVM_vault" {
+  # Drata: Configure [azurerm_key_vault.tags] to ensure that organization-wide tagging conventions are followed.
   name                        = "TerraFailVM_vault"
   location                    = azurerm_resource_group.TerraFailVM_rg.location
   resource_group_name         = azurerm_resource_group.TerraFailVM_rg.name
@@ -138,6 +143,8 @@ resource "azurerm_key_vault" "TerraFailVM_vault" {
 }
 
 resource "azurerm_key_vault_key" "TerraFailVM_vault_key" {
+  # Drata: Configure [azurerm_key_vault_key.rotation_policy] to minimize the risk of key exposure by ensuring that sensitive values are periodically rotated
+  # Drata: Configure [azurerm_key_vault_key.tags] to ensure that organization-wide tagging conventions are followed.
   name         = "TerraFailVM_vault_key"
   key_vault_id = azurerm_key_vault.TerraFailVM_vault.id
   key_type     = "RSA"

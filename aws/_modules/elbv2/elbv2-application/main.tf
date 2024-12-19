@@ -3,6 +3,7 @@
 # ELBv2
 # ---------------------------------------------------------------------
 resource "aws_lb" "TerraFailLB" {
+  # Drata: Configure [aws_lb.tags] to ensure that organization-wide tagging conventions are followed.
   name                       = "TerraFailLB"
   load_balancer_type         = "application"
   drop_invalid_header_fields = true
@@ -68,7 +69,7 @@ resource "aws_lb_listener_rule" "TerraFailLB_listener_rule" {
 resource "aws_lb_listener" "TerraFailLB_listener" {
   load_balancer_arn = aws_lb.TerraFailLB.arn
   port              = 99
-  protocol          = "HTTP"
+  protocol          = "HTTPS"
 
   default_action {
     type             = "forward"
@@ -125,10 +126,12 @@ resource "aws_subnet" "TerraFailLB_subnet_default" {
 }
 
 resource "aws_vpc" "TerraFailLB_vpc" {
+  # Drata: Configure [aws_vpc.tags] to ensure that organization-wide tagging conventions are followed.
   cidr_block = "10.0.0.0/16"
 }
 
 resource "aws_security_group" "TerraFailLB_security_group" {
+  # Drata: Configure [aws_security_group.tags] to ensure that organization-wide tagging conventions are followed.
   name                   = "TerraFailLB_security_group"
   description            = "Allow TLS inbound traffic"
   vpc_id                 = aws_vpc.TerraFailLB_vpc.id
@@ -155,8 +158,10 @@ resource "aws_security_group" "TerraFailLB_security_group" {
 # S3
 # ---------------------------------------------------------------------
 resource "aws_s3_bucket" "TerraFailLB_bucket" {
+  # Drata: Set [aws_s3_bucket_versioning.versioning_configuration.status] to [Enabled] to enable infrastructure versioning and prevent accidental deletions and overrides
+  # Drata: Configure [aws_s3_bucket.tags] to ensure that organization-wide tagging conventions are followed.
   bucket = "TerraFailLB_bucket"
-  acl    = "public-read-write"
+  acl    = "private"
 }
 
 # ---------------------------------------------------------------------
@@ -250,6 +255,7 @@ resource "aws_launch_template" "TerraFailLB_launch_template" {
 # KMS
 # ---------------------------------------------------------------------
 resource "aws_kms_key" "TerraFailLB_key" {
+  # Drata: Configure [aws_kms_key.tags] to ensure that organization-wide tagging conventions are followed.
   description             = "TerraFailLB_key"
   deletion_window_in_days = 10
 
@@ -305,6 +311,7 @@ resource "aws_iam_instance_profile" "TerraFailLB_instance_profile" {
 }
 
 resource "aws_iam_role" "TerraFailLB_role" {
+  # Drata: Configure [aws_iam_role.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailLB_role"
   path = "/"
 

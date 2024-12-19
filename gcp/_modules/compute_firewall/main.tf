@@ -2,10 +2,12 @@
 # Compute Firewall
 # ---------------------------------------------------------------------
 resource "google_compute_firewall" "TerraFailComputeFirewall" {
+  # Drata: Configure [google_compute_firewall.log_config] to ensure that security-relevant events are logged to detect malicious activity
   name          = "TerraFailComputeFirewall"
   network       = google_compute_network.TerraFailComputeFirewall_network.name
   direction     = "ingress"
   source_ranges = ["*"]
+  # Drata: Ensure that [google_compute_firewall.source_ranges] is explicitly defined and narrowly scoped to only allow traffic from trusted sources
   source_tags   = ["web"]
 
   allow {
@@ -22,7 +24,7 @@ resource "google_compute_firewall_policy_rule" "TerraFailComputeFirewall_rule" {
   firewall_policy = google_compute_firewall_policy.default.name
   description     = "Resource created for Terraform acceptance testing"
   priority        = 9000
-  enable_logging  = false
+  enable_logging  = true
   action          = "allow"
   direction       = "EGRESS"
   disabled        = false

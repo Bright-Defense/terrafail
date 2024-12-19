@@ -4,8 +4,12 @@
 # ELBv1
 # ---------------------------------------------------------------------
 resource "aws_elb" "TerraFailELB" {
+  # Drata: Configure [aws_elb.access_logs.enabled] to ensure that security-relevant events are logged to detect malicious activity
+  # Drata: Default network security groups allow broader access than required. Specify [aws_elb.security_groups] to configure more granular access control
+  # Drata: Configure [aws_elb.tags] to ensure that organization-wide tagging conventions are followed.
   name     = "TerraFailELB"
   subnets  = [aws_subnet.TerraFailELB_subnet.id]
+  # Drata: Configure [aws_elb.subnets] to improve infrastructure availability and resilience. Define at least 2 subnets or availability zones on your load balancer to enable zone redundancy
   internal = true
 
   listener {
@@ -33,6 +37,7 @@ resource "aws_elb" "TerraFailELB" {
 # Network
 # ---------------------------------------------------------------------
 resource "aws_security_group" "TerraFailELB_security_group" {
+  # Drata: Configure [aws_security_group.tags] to ensure that organization-wide tagging conventions are followed.
   name                   = "TerraFailELB_security_group"
   description            = "Allow TLS inbound traffic"
   vpc_id                 = aws_vpc.TerraFailELB_vpc.id
@@ -52,6 +57,7 @@ resource "aws_security_group" "TerraFailELB_security_group" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  # Drata: Ensure that [aws_security_group.egress.cidr_blocks] is explicitly defined and narrowly scoped to only allow traffic to trusted sources
   }
 }
 
@@ -66,5 +72,6 @@ resource "aws_subnet" "TerraFailELB_subnet" {
 }
 
 resource "aws_vpc" "TerraFailELB_vpc" {
+  # Drata: Configure [aws_vpc.tags] to ensure that organization-wide tagging conventions are followed.
   cidr_block = "10.0.0.0/16"
 }

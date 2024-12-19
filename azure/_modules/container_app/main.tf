@@ -9,13 +9,14 @@ resource "azurerm_resource_group" "TerraFailContainerApp_rg" {
 # ContainerApp
 # ---------------------------------------------------------------------
 resource "azurerm_container_app" "TerraFailContainerApp" {
+  # Drata: Configure [azurerm_container_app.tags] to ensure that organization-wide tagging conventions are followed.
   name                         = "TerraFailContainerApp"
   container_app_environment_id = azurerm_container_app_environment.TerraFailContainerApp_environment.id
   resource_group_name          = azurerm_resource_group.TerraFailContainerApp_rg.name
   revision_mode                = "Single"
 
   ingress {
-    allow_insecure_connections = true
+    allow_insecure_connections = false
     transport                  = "auto"
     target_port                = 6784
 
