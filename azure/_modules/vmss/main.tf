@@ -180,6 +180,7 @@ resource "azurerm_disk_encryption_set" "TerraFailVMSS_disk_encryption_set" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "TerraFailVMSS_vault" {
+  # Drata: Configure [azurerm_key_vault.tags] to ensure that organization-wide tagging conventions are followed.
   name                        = "TerraFailVMSS_vault"
   location                    = azurerm_resource_group.TerraFailVMSS_rg.location
   resource_group_name         = azurerm_resource_group.TerraFailVMSS_rg.name
