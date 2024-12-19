@@ -60,6 +60,7 @@ resource "aws_apigatewayv2_route" "TerraFailAPIv2_route" {
 # ELBV2
 # ---------------------------------------------------------------------
 resource "aws_lb" "TerraFailAPIv2_lb" {
+  # Drata: Configure [aws_lb.tags] to ensure that organization-wide tagging conventions are followed.
   name                       = "TerraFailAPIv2_lb"
   load_balancer_type         = "application"
   drop_invalid_header_fields = true
