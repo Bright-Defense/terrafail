@@ -17,6 +17,7 @@ resource "aws_elasticache_cluster" "TerraFailElasticache_cluster_mem" {
 }
 
 resource "aws_elasticache_cluster" "TerraFailElasticache_cluster_red" {
+  # Drata: Default network security groups allow broader access than required. Specify [aws_elasticache_cluster.security_group_ids] to configure more granular access control
   # Drata: Configure [aws_elasticache_cluster.tags] to ensure that organization-wide tagging conventions are followed.
   cluster_id           = "TerraFailElasticache_cluster_red"
   engine               = "redis"
