@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailAppGateway_rg" {
 # Application Gateway
 # ---------------------------------------------------------------------
 resource "azurerm_application_gateway" "TerraFailAppGateway" {
+  # Drata: Configure [azurerm_application_gateway.zones] to improve infrastructure availability and resilience
   name                = "TerraFailAppGateway"
   resource_group_name = azurerm_resource_group.TerraFailAppGateway_rg.name
   location            = azurerm_resource_group.TerraFailAppGateway_rg.location
