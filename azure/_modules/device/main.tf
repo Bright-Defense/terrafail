@@ -24,6 +24,7 @@ resource "azurerm_iothub" "TerraFailIoTHub" {
     ip_rule {
       name    = "wildcard"
       ip_mask = "0.0.0.0/0"
+    # Drata: Ensure that [azurerm_iothub.network_rule_set.ip_rule.ip_mask] is explicitly defined and narrowly scoped to only allow trusted sources to access IoT Hub
     }
   }
 }
