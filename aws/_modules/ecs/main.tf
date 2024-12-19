@@ -8,6 +8,7 @@ resource "aws_ecs_cluster" "TerraFailECS_cluster" {
 }
 
 resource "aws_ecs_service" "TerraFailECS_service" {
+  # Drata: Configure [aws_ecs_service.tags] to ensure that organization-wide tagging conventions are followed.
   name            = "TerraFailECS_service"
   cluster         = aws_ecs_cluster.TerraFailECS_cluster.arn
   task_definition = aws_ecs_task_definition.TerraFailECS_task_definition.arn
