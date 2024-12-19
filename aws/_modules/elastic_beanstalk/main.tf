@@ -13,6 +13,7 @@ resource "aws_elastic_beanstalk_application" "TerraFailElasticBeanstalk" {
 }
 
 resource "aws_elastic_beanstalk_environment" "TerraFailElasticBeanstalk_environment" {
+  # Drata: To enable managed platform updates specify an environment configuration option with namespace aws:elasticbeanstalk:managedactions
   # Drata: Configure [aws_elastic_beanstalk_environment.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailElasticBeanstalk_environment"
   application         = aws_elastic_beanstalk_application.TerraFailElasticBeanstalk.name
