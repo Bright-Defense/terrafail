@@ -72,7 +72,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "TerraFailVMSS_windows" {
   upgrade_mode               = "Automatic"
 
   automatic_instance_repair {
-    enabled = false
+    enabled = true
   }
 
   source_image_reference {
