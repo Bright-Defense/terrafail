@@ -47,7 +47,7 @@ resource "azurerm_windows_function_app" "TerraFailFunction_windows" {
     cors {
       allowed_origins = ["*"]
     }
-    minimum_tls_version      = "1.0"
+    minimum_tls_version      = 1.2
     remote_debugging_enabled = true
 
     ip_restriction {
