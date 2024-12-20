@@ -2,6 +2,7 @@
 # KMS
 # ---------------------------------------------------------------------
 resource "google_kms_crypto_key" "TerraFailKMS" {
+  # Drata: Configure [google_kms_crypto_key.labels] to ensure that organization-wide label conventions are followed.
   name     = "TerraFailKMS"
   key_ring = google_kms_key_ring.TerraFailKMS_ring.id
 }
