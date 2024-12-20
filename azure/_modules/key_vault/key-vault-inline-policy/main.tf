@@ -31,6 +31,7 @@ resource "azurerm_key_vault" "TerraFailKeyVault" {
 
     key_permissions         = ["Create", "Get", "Update"]
     secret_permissions      = ["Delete", "Purge", "Get", "Set", "List"]
+    # Drata: Explicitly define permissionss for [azurerm_key_vault.access_policy.secret_permissions] in adherence with the principal of least privilege. Avoid the use of overly permissive allow-all access patterns such as ([all, delete, purge])
     certificate_permissions = ["Delete", "DeleteIssuers", "Purge", "Create", "Get", "Update"]
   }
 }
