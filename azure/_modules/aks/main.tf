@@ -7,6 +7,7 @@ resource "azurerm_resource_group" "TerraFailAKS_rg" {
 # AKS
 # ---------------------------------------------------------------------
 resource "azurerm_kubernetes_cluster" "TerraFailAKS_cluster" {
+  # Drata: Configure [azurerm_kubernetes_cluster.tags] to ensure that organization-wide tagging conventions are followed.
   name                = "TerraFailAKS_cluster"
   location            = azurerm_resource_group.TerraFailAKS_rg.location
   resource_group_name = azurerm_resource_group.TerraFailAKS_rg.name
