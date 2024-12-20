@@ -26,7 +26,7 @@ resource "aws_elasticsearch_domain" "TerraFailElasticache_domain" {
   }
 
   encrypt_at_rest {
-    enabled = false
+    enabled = true
   }
 
   domain_endpoint_options {
