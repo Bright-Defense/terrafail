@@ -7,6 +7,7 @@ resource "azurerm_resource_group" "TerraFailVMSS_rg" {
 # Virtual Machine Scale Set
 # ---------------------------------------------------------------------
 resource "azurerm_linux_virtual_machine_scale_set" "TerraFailVMSS_linux" {
+  # Drata: Configure [azurerm_virtual_machine_scale_set.tags] to ensure that organization-wide tagging conventions are followed.
   name                            = "TerraFailVMSS_linux"
   resource_group_name             = azurerm_resource_group.TerraFailVMSS_rg.name
   location                        = azurerm_resource_group.TerraFailVMSS_rg.location
