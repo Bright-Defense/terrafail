@@ -29,6 +29,7 @@ resource "aws_elasticache_cluster" "TerraFailElasticache_cluster_red" {
 }
 
 resource "aws_elasticache_replication_group" "TerraFailElasticache_replication_group" {
+  # Drata: Configure [aws_elasticache_replication_group.tags] to ensure that organization-wide tagging conventions are followed.
   preferred_cache_cluster_azs = ["us-east-2b", "us-east-2c"]
   replication_group_id        = "TerraFailElasticache_replication_group"
   description                 = "TerraFailElasticache_replication_group description"
