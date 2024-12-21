@@ -89,6 +89,7 @@ resource "azurerm_storage_account" "TerraFailFunction_storage_windows" {
   location                  = azurerm_resource_group.TerraFailFunction_rg.location
   account_tier              = "Standard_v2"
   account_replication_type  = "LRS"
+  # Drata: Configure [azurerm_storage_account.account_replication_type] to improve infrastructure availability and resilience. To create highly available Storage Accounts, set azurerm_storage_account.account_replication_type to a geo-redundant storage option by selecting one of the following SKUs: ['standard_grs', 'standard_gzrs', 'standard_ragrs', 'standard_ragzrs', 'grs', 'gzrs', 'ragrs', 'ragzrs']
   enable_https_traffic_only = true
   min_tls_version           = "TLS1_2"
   public_network_access_enabled = false
