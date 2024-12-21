@@ -31,7 +31,7 @@ resource "aws_elasticsearch_domain" "TerraFailElasticache_domain" {
 
   domain_endpoint_options {
     enforce_https       = false
-    tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
+    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }
 
   node_to_node_encryption {
