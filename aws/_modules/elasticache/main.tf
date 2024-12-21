@@ -11,7 +11,7 @@ resource "aws_elasticache_cluster" "TerraFailElasticache_cluster_mem" {
   parameter_group_name = "default.memcached1.6"
   port                 = 11211
   subnet_group_name    = aws_TerraFailTerraFailElasticache_subnet_group.TerraFailTerraFailElasticache_subnet_group.name
-  az_mode              = "single-az"
+  az_mode              = "cross-az"
   security_group_ids       = [aws_security_group.cluster_security_group.id]
   snapshot_retention_limit = 48
 }
