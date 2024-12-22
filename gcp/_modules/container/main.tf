@@ -34,7 +34,7 @@ resource "google_container_node_pool" "TerraFailContainer_node_pool" {
     image_type   = "UBUNTU_CONTAINERD"
   }
   management {
-    auto_repair  = false
+    auto_repair  = true
     auto_upgrade = true
   }
 }
