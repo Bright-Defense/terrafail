@@ -69,6 +69,7 @@ resource "azurerm_service_plan" "TerraFailFunction_service_plan" {
 }
 
 resource "azurerm_storage_account" "TerraFailFunction_storage_linux" {
+  # Drata: Configure [azurerm_storage_account.tags] to ensure that organization-wide tagging conventions are followed.
   name                      = "TerraFailFunction_storage_linux"
   resource_group_name       = azurerm_resource_group.TerraFailFunction_rg.name
   location                  = azurerm_resource_group.TerraFailFunction_rg.location
