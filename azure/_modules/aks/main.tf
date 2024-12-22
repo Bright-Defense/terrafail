@@ -7,6 +7,7 @@ resource "azurerm_resource_group" "TerraFailAKS_rg" {
 # AKS
 # ---------------------------------------------------------------------
 resource "azurerm_kubernetes_cluster" "TerraFailAKS_cluster" {
+  # Drata: Set [azurerm_kubernetes_cluster.automatic_channel_upgrade] to any of ['stable', 'rapid', 'patch'] to automatically upgrade AKS cluster to the latest Kubernetes version
   name                = "TerraFailAKS_cluster"
   location            = azurerm_resource_group.TerraFailAKS_rg.location
   resource_group_name = azurerm_resource_group.TerraFailAKS_rg.name
