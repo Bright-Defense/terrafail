@@ -4,6 +4,7 @@
 # ElastiCache
 # ---------------------------------------------------------------------
 resource "aws_elasticache_cluster" "TerraFailElasticache_cluster_mem" {
+  # Drata: Configure [aws_elasticache_cluster.tags] to ensure that organization-wide tagging conventions are followed.
   cluster_id           = "TerraFailElasticache_cluster_mem"
   engine               = "memcached"
   node_type            = "cache.t3.small"
