@@ -28,7 +28,7 @@ resource "google_app_engine_flexible_app_version" "TerraFailAppEngine_version_fl
     script         = "path/to/script.py"
   }
   handlers {
-    security_level = "SECURE_DEFAULT"
+    security_level = "SECURE_ALWAYS"
   }
   handlers {
     security_level = "SECURE_ALWAYS"
