@@ -21,7 +21,7 @@ resource "azurerm_application_gateway" "TerraFailAppGateway" {
   sku {
     name     = "Standard_v2"
     tier     = "Standard_v2"
-    capacity = 1
+    capacity = 2
   }
 
   gateway_ip_configuration {
