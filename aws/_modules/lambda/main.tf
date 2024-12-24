@@ -30,7 +30,7 @@ resource "aws_lambda_function" "TerraFailLambda_function" {
   role                           = aws_iam_role.TerraFailLambda_role.arn
   filename                       = "my-deployment-package.zip"
   handler                        = "index.handler"
-  runtime                        = "dotnetcore3.1"
+  runtime                        = "dotnet8"
   reserved_concurrent_executions = 0
   layers                         = [aws_TerraFailLambda_layer_version_version.TerraFailLambda_layer_version.arn]
 
@@ -65,6 +65,7 @@ resource "aws_TerraFailLambda_layer_version_version" "TerraFailLambda_layer_vers
 # Kinesis
 # ---------------------------------------------------------------------
 resource "aws_kinesis_stream" "TerraFailLambda_stream" {
+  # Drata: Set [aws_kinesis_stream.encryption_type] to [KMS] to ensure transparent data encryption is enabled
   name             = "TerraFailLambda_stream"
   shard_count      = 1
   retention_period = 48
@@ -87,6 +88,8 @@ resource "aws_kinesis_stream" "TerraFailLambda_stream" {
 # SNS
 # ---------------------------------------------------------------------
 resource "aws_sns_topic" "TerraFailLambda_topic" {
+  # Drata: Define [aws_sns_topic.policy] to restrict access to your resource. Follow the principal of minimum necessary access, ensuring permissions are scoped to trusted entities. Exclude this finding if you are managing access via IAM policies
+  # Drata: Configure [aws_sns_topic.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailLambda_topic"
 
   policy = <<EOF
@@ -108,6 +111,7 @@ EOF
 # Network
 # ---------------------------------------------------------------------
 resource "aws_security_group" "TerraFailLambda_security_group" {
+  # Drata: Configure [aws_security_group.tags] to ensure that organization-wide tagging conventions are followed.
   vpc_id = aws_vpc.TerraFailLambda_vpc.id
   egress {
     from_port        = 0
@@ -128,6 +132,7 @@ resource "aws_subnet" "TerraFailLambda_subnet" {
 }
 
 resource "aws_vpc" "TerraFailLambda_vpc" {
+  # Drata: Configure [aws_vpc.tags] to ensure that organization-wide tagging conventions are followed.
   cidr_block = "10.0.0.0/16"
 }
 
@@ -135,6 +140,7 @@ resource "aws_vpc" "TerraFailLambda_vpc" {
 # IAM
 # ---------------------------------------------------------------------
 resource "aws_iam_role" "TerraFailLambda_role" {
+  # Drata: Configure [aws_iam_role.tags] to ensure that organization-wide tagging conventions are followed.
   name               = "TerraFailLambda_role"
   assume_role_policy = <<EOF
 {

@@ -4,6 +4,8 @@
 # DynamoDB
 # ---------------------------------------------------------------------
 resource "aws_dynamodb_table" "TerraFailDynamoDB" {
+  # Drata: Configure [aws_dynamodb_table.tags] to ensure that organization-wide tagging conventions are followed.
+  # Drata: Set [dynamo_dbtable.table.deletion_protection_enabled] to [true] to prevent accidental or unauthorized deletion of critical assets
   name           = "TerraFailDynamoDB"
   billing_mode   = "PROVISIONED"
   hash_key       = "UserId"
@@ -33,7 +35,7 @@ resource "aws_dynamodb_table" "TerraFailDynamoDB" {
 
 
   point_in_time_recovery {
-    enabled = false
+    enabled = true
   }
 
   timeouts {

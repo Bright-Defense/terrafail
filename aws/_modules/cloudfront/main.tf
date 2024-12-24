@@ -4,6 +4,9 @@
 # CloudFront
 # ---------------------------------------------------------------------
 resource "aws_cloudfront_distribution" "TerraFailCloudfront_distribution" {
+  # Drata: Configure [aws_cloudfront_distribution.logging_config.bucket] to ensure that security-relevant events are logged to detect malicious activity
+  # Drata: Ensure that [aws_cloudfront_distribution.web_acl_id] is defined to inspect incoming requests and protect against common web application attacks. Exclude this finding if custom Web ACL policies are attached through AWS WAF resource
+  # Drata: Configure [aws_cloudfront_distribution.tags] to ensure that organization-wide tagging conventions are followed.
   enabled = true
   aliases = ["www.thisisthedarkside.com", "thisisthedarkside.com"]
 
@@ -18,7 +21,7 @@ resource "aws_cloudfront_distribution" "TerraFailCloudfront_distribution" {
     allowed_methods        = ["HEAD", "GET"]
     cached_methods         = ["HEAD", "GET"]
     target_origin_id       = aws_s3_bucket.TerraFailCloudfront_bucket.id
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
 
     forwarded_values {
       query_string = false
@@ -36,7 +39,7 @@ resource "aws_cloudfront_distribution" "TerraFailCloudfront_distribution" {
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "http-only"
+      origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1"]
     }
   }
@@ -56,6 +59,7 @@ resource "aws_cloudfront_TerraFailCloudfront_identity" "TerraFailCloudfront_iden
 # S3
 # ---------------------------------------------------------------------
 resource "aws_s3_bucket" "TerraFailCloudfront_bucket" {
+  # Drata: Set [aws_s3_bucket_versioning.versioning_configuration.status] to [Enabled] to enable infrastructure versioning and prevent accidental deletions and overrides
   bucket = "TerraFailCloudfront_bucket"
   acl    = "private"
 
@@ -69,6 +73,7 @@ resource "aws_s3_bucket_ownership_controls" "TerraFailCloudfront_bucket_ownershi
   bucket = aws_s3_bucket.TerraFailCloudfront_bucket.id
   rule {
     object_ownership = "ObjectWriter"
+  # Drata: Set [aws_s3_bucket_ownership_controls.rule.object_ownership] to [BucketOwnerEnforced] to configure resource access using IAM policies
   }
 }
 

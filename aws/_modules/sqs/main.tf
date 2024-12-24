@@ -3,6 +3,7 @@
 # SQS
 # ---------------------------------------------------------------------
 resource "aws_sqs_queue" "TerraFailSQS" {
+  # Drata: Configure [aws_sqs_queue.tags] to ensure that organization-wide tagging conventions are followed.
   name                      = "TerraFailSQS"
   kms_master_key_id         = aws_kms_key.TerraFailSQS_key.id
   delay_seconds             = 90
@@ -32,6 +33,8 @@ EOF
 # KMS
 # ---------------------------------------------------------------------
 resource "aws_kms_key" "TerraFailSQS_key" {
+  # Drata: Define [aws_kms_key.policy] to restrict access to your resource. Follow the principal of minimum necessary access, ensuring permissions are scoped to trusted entities. Exclude this finding if you are managing access via IAM policies
+  # Drata: Configure [aws_kms_key.tags] to ensure that organization-wide tagging conventions are followed.
   description             = "TerraFailSQS_key"
   deletion_window_in_days = 10
 }

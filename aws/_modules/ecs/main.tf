@@ -4,10 +4,13 @@
 # ECS
 # ---------------------------------------------------------------------
 resource "aws_ecs_cluster" "TerraFailECS_cluster" {
+  # Drata: Configure [aws_ecs_cluster.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailECS_cluster"
 }
 
 resource "aws_ecs_service" "TerraFailECS_service" {
+  # Drata: Default network security groups allow broader access than required. Specify [aws_ecs_service.network_configuration.security_groups] to configure more granular access control
+  # Drata: Configure [aws_ecs_service.tags] to ensure that organization-wide tagging conventions are followed.
   name            = "TerraFailECS_service"
   cluster         = aws_ecs_cluster.TerraFailECS_cluster.arn
   task_definition = aws_ecs_task_definition.TerraFailECS_task_definition.arn
@@ -15,6 +18,7 @@ resource "aws_ecs_service" "TerraFailECS_service" {
 }
 
 resource "aws_ecs_task_definition" "TerraFailECS_task_definition" {
+  # Drata: Configure [aws_ecs_task_definition.tags] to ensure that organization-wide tagging conventions are followed.
 
   family = "TerraFailECS_task_definition"
   container_definitions = jsonencode([{
@@ -36,13 +40,13 @@ resource "aws_ecs_task_definition" "TerraFailECS_task_definition" {
 
   cpu          = 1024
   memory       = 2048
-  network_mode = "none"
+  network_mode = "awsvpc"
 
   volume {
     name = "myEfsVolume"
     efs_volume_configuration {
       file_system_id     = aws_efs_file_system.TerraFailECS_efs.id
-      transit_encryption = "DISABLED"
+      transit_encryption = "ENABLED"
 
       authorization_config {
         iam = "DISABLED"
@@ -64,10 +68,12 @@ resource "aws_subnet" "TerraFailECS_subnet" {
 }
 
 resource "aws_vpc" "TerraFailECS_vpc" {
+  # Drata: Configure [aws_vpc.tags] to ensure that organization-wide tagging conventions are followed.
   cidr_block = "10.0.0.0/16"
 }
 
 resource "aws_security_group" "TerraFailECS_security_group" {
+  # Drata: Configure [aws_security_group.tags] to ensure that organization-wide tagging conventions are followed.
   name                   = "TerraFailECS_security_group"
   description            = "Allow TLS inbound traffic"
   vpc_id                 = aws_vpc.TerraFailECS_vpc.id

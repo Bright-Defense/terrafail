@@ -2,6 +2,7 @@
 # Big Query
 # ---------------------------------------------------------------------
 resource "google_bigquery_dataset" "TerraFailBigQuery_dataset" {
+  # Drata: Configure [google_bigquery_dataset.labels] to ensure that organization-wide label conventions are followed.
   dataset_id = "TerraFailBigQuery_dataset"
   location   = "US-EAST1"
   project    = "terrafail"
@@ -26,6 +27,7 @@ resource "google_bigquery_dataset_iam_member" "TerraFailBigQuery_iam_member" {
 }
 
 resource "google_bigquery_table" "TerraFailBigQuery_table" {
+  # Drata: Configure [google_bigquery_table.labels] to ensure that organization-wide label conventions are followed.
   dataset_id = google_bigquery_dataset.TerraFailBigQuery_dataset.dataset_id
   table_id   = "bigQ"
   time_partitioning {

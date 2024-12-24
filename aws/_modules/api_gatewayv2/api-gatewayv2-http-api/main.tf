@@ -4,6 +4,7 @@
 # ApiGateway
 # ---------------------------------------------------------------------
 resource "aws_apigatewayv2_api" "TerraFailAPIv2" {
+  # Drata: Configure [aws_apigatewayv2_api.tags] to ensure that organization-wide tagging conventions are followed.
   name          = "TerraFailAPIv2"
   protocol_type = "HTTP"
 
@@ -19,12 +20,13 @@ resource "aws_apigatewayv2_api_mapping" "TerraFailAPIv2_mapping" {
 }
 
 resource "aws_apigatewayv2_domain_name" "TerraFailAPIv2_domain" {
+  # Drata: Configure [aws_apigatewayv2_domain_name.tags] to ensure that organization-wide tagging conventions are followed.
   domain_name = "thisisthedarkside.com"
 
   domain_name_configuration {
     certificate_arn = "arn:aws:acm:us-east-2:709695003849:certificate/2c0bef53-a821-4722-939e-d3c29a2dd3b3"
     endpoint_type   = "REGIONAL"
-    security_policy = "TLS_1_1"
+    security_policy = "TLS_1_2"
   }
 }
 
@@ -32,7 +34,7 @@ resource "aws_apigatewayv2_integration" "TerraFailAPIv2_integration" {
   api_id             = aws_apigatewayv2_api.TerraFailAPIv2.id
   integration_type   = "HTTP_PROXY"
   integration_method = "PATCH"
-  connection_type    = "INTERNET"
+  connection_type    = "VPC_LINK"
   integration_uri    = aws_lb_listener.TerraFailAPIv2_listener.arn
   tls_config {
     server_name_to_verify = "thisisthedarkside.com"
@@ -40,6 +42,7 @@ resource "aws_apigatewayv2_integration" "TerraFailAPIv2_integration" {
 }
 
 resource "aws_apigatewayv2_stage" "TerraFailAPIv2_stage" {
+  # Drata: Configure [aws_apigatewayv2_stage.tags] to ensure that organization-wide tagging conventions are followed.
   api_id = aws_apigatewayv2_api.TerraFailAPIv2.id
   name   = "TerraFailAPIv2_stage"
 
@@ -60,11 +63,13 @@ resource "aws_apigatewayv2_route" "TerraFailAPIv2_route" {
 # ELBV2
 # ---------------------------------------------------------------------
 resource "aws_lb" "TerraFailAPIv2_lb" {
+  # Drata: Default network security groups allow broader access than required. Specify [aws_lb.security_groups] to configure more granular access control
+  # Drata: Configure [aws_lb.tags] to ensure that organization-wide tagging conventions are followed.
   name                       = "TerraFailAPIv2_lb"
   load_balancer_type         = "application"
   drop_invalid_header_fields = true
   desync_mitigation_mode     = "monitor"
-  internal                   = false
+  internal                   = true
   subnets                    = [aws_subnet.TerraFailAPIv2_subnet.id, aws_subnet.TerraFailAPIv2_subnet_2.id]
 }
 
@@ -190,6 +195,7 @@ resource "aws_route53_record" "TerraFailAPIv2_route_record" {
 # KMS
 # ---------------------------------------------------------------------
 resource "aws_kms_key" "TerraFailAPIv2_key" {
+  # Drata: Configure [aws_kms_key.tags] to ensure that organization-wide tagging conventions are followed.
   description             = "TerraFailAPIv2_key"
   deletion_window_in_days = 10
 
@@ -240,6 +246,7 @@ EOF
 # IAM
 # ---------------------------------------------------------------------
 resource "aws_iam_role" "TerraFailAPIv2_role" {
+  # Drata: Configure [aws_iam_role.tags] to ensure that organization-wide tagging conventions are followed.
   name = "TerraFailAPIv2_role"
   path = "/"
 

@@ -11,6 +11,7 @@ resource "azurerm_resource_group" "TerraFailKeyVault_rg" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "TerraFailKeyVault" {
+  # Drata: Configure [azurerm_key_vault.tags] to ensure that organization-wide tagging conventions are followed.
   name                          = "TerraFailKeyVault"
   location                      = azurerm_resource_group.TerraFailKeyVault_rg.location
   resource_group_name           = azurerm_resource_group.TerraFailKeyVault_rg.name
@@ -22,7 +23,7 @@ resource "azurerm_key_vault" "TerraFailKeyVault" {
 
   network_acls {
     bypass         = "AzureServices"
-    default_action = "Allow"
+    default_action = "Deny"
   }
 
   access_policy {
@@ -31,11 +32,13 @@ resource "azurerm_key_vault" "TerraFailKeyVault" {
 
     key_permissions         = ["Create", "Get", "Update"]
     secret_permissions      = ["Delete", "Purge", "Get", "Set", "List"]
+    # Drata: Explicitly define permissionss for [azurerm_key_vault.access_policy.secret_permissions] in adherence with the principal of least privilege. Avoid the use of overly permissive allow-all access patterns such as ([all, delete, purge])
     certificate_permissions = ["Delete", "DeleteIssuers", "Purge", "Create", "Get", "Update"]
   }
 }
 
 resource "azurerm_key_vault_key" "TerraFailKeyVault_key" {
+  # Drata: Configure [azurerm_key_vault_key.tags] to ensure that organization-wide tagging conventions are followed.
   name         = "TerraFailKeyVault"
   key_vault_id = azurerm_key_vault.TerraFailKeyVault.id
   key_type     = "EC"
@@ -48,6 +51,7 @@ resource "azurerm_key_vault_key" "TerraFailKeyVault_key" {
 }
 
 resource "azurerm_key_vault_secret" "TerraFailKeyVault_secret" {
+  # Drata: Configure [azurerm_key_vault_secret.tags] to ensure that organization-wide tagging conventions are followed.
   name         = "TerraFailKeyVault_secret"
   value        = "szechuan"
   key_vault_id = azurerm_key_vault.TerraFailKeyVault.id

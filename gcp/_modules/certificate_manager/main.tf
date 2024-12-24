@@ -2,6 +2,7 @@
 # Certificate Manager
 # ---------------------------------------------------------------------
 resource "google_certificate_manager_certificate" "TerraFailCertManager" {
+  # Drata: Configure [google_certificate_manager_certificate.labels] to ensure that organization-wide label conventions are followed.
   name        = "TerraFailCertManager"
   description = "TerraFailCertManager description"
   scope       = "EDGE_CACHE"
@@ -14,11 +15,13 @@ resource "google_certificate_manager_certificate" "TerraFailCertManager" {
 }
 
 resource "google_certificate_manager_certificate_map" "TerraFailCertManager_map" {
+  # Drata: Configure [google_certificate_manager_certificate_map.labels] to ensure that organization-wide label conventions are followed.
   name        = "TerraFailCertManager_map"
   description = "TerraFailCertManager certificate map"
 }
 
 resource "google_certificate_manager_certificate_map_entry" "TerraFailCertManager_map_entry" {
+  # Drata: Configure [google_certificate_manager_certificate_map_entry.labels] to ensure that organization-wide label conventions are followed.
   name         = "TerraFailCertManager_map_entry"
   description  = "TerraFailCertManager map entry"
   map          = google_certificate_manager_certificate_map.TerraFailCertManager_map.name
@@ -27,6 +30,7 @@ resource "google_certificate_manager_certificate_map_entry" "TerraFailCertManage
 }
 
 resource "google_certificate_manager_dns_authorization" "TerraFailCertManager_dns_authorization" {
+  # Drata: Configure [google_certificate_manager_dns_authorization.labels] to ensure that organization-wide label conventions are followed.
   name        = "TerraFailCertManager_dns_authorization"
   description = "TerraFailCertManager dns authorization"
   domain      = "subdomain.hashicorptest.com"
