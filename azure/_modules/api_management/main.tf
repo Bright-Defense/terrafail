@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "TerraFailAPI_rg" {
 # ApiManagement
 # ---------------------------------------------------------------------
 resource "azurerm_api_management" "TerraFailAPI" {
+  # Drata: Configure [azurerm_api_management.zones] to improve infrastructure availability and resilience
   name                          = "TerraFailAPI"
   location                      = azurerm_resource_group.TerraFailAPI_rg.location
   resource_group_name           = azurerm_resource_group.TerraFailAPI_rg.name
