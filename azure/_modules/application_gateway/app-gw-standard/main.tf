@@ -63,7 +63,7 @@ resource "azurerm_application_gateway" "TerraFailAppGateway" {
     name                           = "http-listener-1"
     frontend_ip_configuration_name = "ip_config_1"
     frontend_port_name             = "front_end_port_1"
-    protocol                       = "Http"
+    protocol                       = "Https"
   }
 
   ssl_policy {
