@@ -40,5 +40,6 @@ resource "azurerm_network_security_rule" "TerraFailNSG_outbound_rule" {
   destination_port_range      = "*"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
+  # Drata: Ensure that [azurerm_network_security_rule.destination_address_prefix] is explicitly defined and narrowly scoped to only allow traffic to trusted sources
 }
 
